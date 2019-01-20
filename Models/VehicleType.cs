@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RentCar.Models
 {
-    public class VehicleType
+    public abstract class VehicleType
     {
         public int Id { get; set; }
 
