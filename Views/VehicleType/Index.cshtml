@@ -23,14 +23,16 @@ else
         <tr>
             <th>Description</th>
             <th>Status</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
         @foreach (var vehicleType in @Model)
         {
             <tr>
-                <td>@Html.ActionLink(vehicleType.Description, "Edit", "VehicleType", new {id = vehicleType.Id})</td>
+                <td>@Html.ActionLink(vehicleType.Description, "Details", "VehicleType", new {id = vehicleType.Id})</td>
                 <td>@vehicleType.Status.Name</td>
+                <td>@Html.ActionLink("Edit", "Edit", "VehicleType", new {id = vehicleType.Id})</td>
             </tr>
         }
         </tbody>
