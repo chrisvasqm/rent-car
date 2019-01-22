@@ -1,6 +1,9 @@
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators.Internal;
 using RentCar.Models;
 using RentCar.ViewModel;
 
@@ -95,6 +98,19 @@ namespace RentCar.Controllers
             };
 
             return View("VehicleForm", viewModel);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var model = _context.VehicleTypes.SingleOrDefault(m => m.Id == id);
+            var status = _context.Statuses.SingleOrDefault(m => m.Id == id);
+
+            if (model == null || status == null)
+                return NotFound();
+
+            model.Status = status;
+            
+            return View(model);
         }
     }
 }
