@@ -2,6 +2,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentCar.Models;
+using RentCar.ViewModel;
 
 namespace RentCar.Controllers
 {
@@ -26,6 +27,16 @@ namespace RentCar.Controllers
                 .ToList();
 
             return View(model);
+        }
+
+        public IActionResult New()
+        {
+            var form = new VehicleTypeViewModel(new VehicleType())
+            {
+                Statuses = _context.Statuses.ToList()
+            };
+
+            return View("VehicleForm", form);
         }
     }
 }
