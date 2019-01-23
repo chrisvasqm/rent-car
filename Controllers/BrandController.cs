@@ -41,5 +41,19 @@ namespace RentCar.Controllers
             
             return View(brand);
         }
+
+        public IActionResult Delete(int id)
+        {
+            var brand = _context.Brands.SingleOrDefault(b => b.Id == id);
+
+            if (brand == null)
+                return NotFound();
+
+            _context.Brands.Remove(brand);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Brand");
+        }
     }
 }

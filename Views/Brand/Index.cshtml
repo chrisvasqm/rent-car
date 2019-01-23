@@ -31,7 +31,7 @@ else
             <tr>
                 <td>@Html.ActionLink(brand.Description, "Details", "Brand", new {id = brand.Id})</td>
                 <td>@brand.Status.Name</td>
-                <td>@Html.ActionLink("Edit", "Edit", "Brand", new {id = brand.Id}) | @Html.ActionLink("Delete", "Delete", "VehicleType", new {id = brand.Id})</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Brand", new {id = brand.Id}) | @Html.ActionLink("Delete", "Delete", "Brand", new {id = brand.Id})</td>
             </tr>
         }
         </tbody>
