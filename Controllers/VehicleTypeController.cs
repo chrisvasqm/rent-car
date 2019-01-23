@@ -32,7 +32,7 @@ namespace RentCar.Controllers
             return View(model);
         }
 
-        [Route("vehicle-type/new")]
+        [Route("vehicle-types/new")]
         public IActionResult New()
         {
             var viewModel = new VehicleTypeViewModel(new VehicleType())
@@ -44,7 +44,7 @@ namespace RentCar.Controllers
         }
 
         [HttpPost]
-        [Route("vehicle-type/save")]
+        [Route("vehicle-types/save")]
         [ValidateAntiForgeryToken]
         public IActionResult Save(VehicleType vehicleType)
         {
@@ -84,15 +84,15 @@ namespace RentCar.Controllers
             return RedirectToAction("Index", "VehicleType");
         }
 
-        [Route("vehicle-type/edit/{id}")]
+        [Route("vehicle-types/edit/{id}")]
         public IActionResult Edit(int id)
         {
-            var model = _context.VehicleTypes.SingleOrDefault(m => m.Id == id);
+            var vehicleType = _context.VehicleTypes.SingleOrDefault(vt => vt.Id == id);
 
-            if (model == null)
+            if (vehicleType == null)
                 return NotFound();
 
-            var viewModel = new VehicleTypeViewModel(model)
+            var viewModel = new VehicleTypeViewModel(vehicleType)
             {
                 Statuses = _context.Statuses.ToList(),
             };
@@ -100,27 +100,29 @@ namespace RentCar.Controllers
             return View("VehicleForm", viewModel);
         }
 
+        [Route("vehicle-types/details/{id}")]
         public IActionResult Details(int id)
         {
-            var model = _context.VehicleTypes.SingleOrDefault(m => m.Id == id);
-            var status = _context.Statuses.SingleOrDefault(m => m.Id == id);
+            var vehicleType = _context.VehicleTypes.SingleOrDefault(vt => vt.Id == id);
+            var status = _context.Statuses.SingleOrDefault(vt => vt.Id == id);
 
-            if (model == null || status == null)
+            if (vehicleType == null || status == null)
                 return NotFound();
 
-            model.Status = status;
+            vehicleType.Status = status;
             
-            return View(model);
+            return View(vehicleType);
         }
+        [Route("vehicle-types/delete/{id}")]
 
         public IActionResult Delete(int id)
         {
-            var model = _context.VehicleTypes.SingleOrDefault(m => m.Id == id);
+            var vehicleType = _context.VehicleTypes.SingleOrDefault(vt => vt.Id == id);
 
-            if (model == null)
+            if (vehicleType == null)
                 return NotFound();
 
-            _context.VehicleTypes.Remove(model);
+            _context.VehicleTypes.Remove(vehicleType);
 
             _context.SaveChanges();
 

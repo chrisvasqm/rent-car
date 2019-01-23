@@ -29,6 +29,7 @@ namespace RentCar.Controllers
         }
 
 
+        [Route("brands/details/{id}")]
         public IActionResult Details(int id)
         {
             var brand = _context.Brands.SingleOrDefault(b => b.Id == id);
@@ -42,6 +43,7 @@ namespace RentCar.Controllers
             return View(brand);
         }
 
+        [Route("brands/delete/{id}")]
         public IActionResult Delete(int id)
         {
             var brand = _context.Brands.SingleOrDefault(b => b.Id == id);
@@ -54,6 +56,74 @@ namespace RentCar.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Brand");
+        }
+
+        [Route("brands/new")]
+        public IActionResult New()
+        {
+            var viewModel = new BrandViewModel(new Brand())
+            {
+                Statuses = _context.Statuses.ToList()
+            };
+
+            return View("BrandForm", viewModel);
+        }
+
+        [HttpPost]
+        [Route("brands/save")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Save(Brand brand)
+        {
+            // Show an error message if the state of the model is invalid.
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new BrandViewModel(brand)
+                {
+                    Statuses = _context.Statuses.ToList()
+                };
+
+                return View("BrandForm", viewModel);
+            }
+
+            
+            if (brand.Id == 0)
+            {
+                // Adding a new item
+                var status = _context.Statuses.Single(m => m.Id == brand.StatusId);
+                brand.Status = status;
+                _context.Brands.Add(brand);
+            }
+            else
+            {
+                // Editing an existing one
+                var brandInDb = _context.Brands.Single(b => b.Id == brand.Id);
+
+                brandInDb.Description = brand.Description;
+                brandInDb.StatusId = brand.StatusId;
+
+                var status = _context.Statuses.Single(b => b.Id == brandInDb.StatusId);
+                brandInDb.Status = status;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Brand");
+        }
+
+        [Route("brands/edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var brand = _context.Brands.SingleOrDefault(b => b.Id == id);
+
+            if (brand == null)
+                return NotFound();
+
+            var viewModel = new BrandViewModel(brand)
+            {
+                Statuses = _context.Statuses.ToList(),
+            };
+
+            return View("BrandForm", viewModel);
         }
     }
 }
