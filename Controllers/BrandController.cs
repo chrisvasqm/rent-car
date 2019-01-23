@@ -27,5 +27,19 @@ namespace RentCar.Controllers
             
             return View(brands);
         }
+
+
+        public IActionResult Details(int id)
+        {
+            var brand = _context.Brands.SingleOrDefault(b => b.Id == id);
+            var status = _context.Statuses.SingleOrDefault(b => b.Id == id);
+            
+            if (brand == null || status == null)
+                return NotFound();
+
+            brand.Status = status;
+            
+            return View(brand);
+        }
     }
 }
