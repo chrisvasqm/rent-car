@@ -6,6 +6,8 @@ namespace RentCar.Models
     {
         public DbSet<VehicleType> VehicleTypes { get; set; }
         public DbSet<Status> Statuses { get; set; }
+
+        public DbSet<Brand> Brands { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

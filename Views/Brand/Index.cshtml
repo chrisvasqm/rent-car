@@ -1,0 +1,39 @@
+@model List<RentCar.Models.Brand>
+
+@{
+    ViewBag.Title = "Brands";
+    Layout = "_Layout";
+}
+
+<h2>Brands</h2>
+
+<a asp-controller="Brand" asp-action="New">
+    <button class="btn btn-primary">New</button>
+</a>
+
+@if (@Model.Count == 0)
+{
+    <p>There are no brands to show. Please add a new one.</p>
+}
+else
+{
+    <table class="table table-striped table-hover ">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var brand in @Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(brand.Description, "Details", "Brand", new {id = brand.Id})</td>
+                <td>@brand.Status.Name</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Brand", new {id = brand.Id}) | @Html.ActionLink("Delete", "Delete", "VehicleType", new {id = brand.Id})</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

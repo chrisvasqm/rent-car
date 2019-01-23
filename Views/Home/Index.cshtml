@@ -1,11 +1,22 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<style type="text/css">
+    .main-menu-button { margin-bottom: 8px; }
+</style>
 
 <div class="text-center">
     <h1 class="display-4">Main menu</h1>
 
-    <a asp-controller="VehicleType" asp-action="Index">
-        <button class="btn btn-primary">Manage vehicle types</button>
-    </a>
+    <div class="main-menu-button">
+        <a asp-controller="VehicleType" asp-action="Index">
+            <button class="btn btn-primary">Manage vehicle types</button>
+        </a>
+    </div>
+
+    <div class="main-menu-button">
+        <a asp-controller="Brand" asp-action="Index">
+            <button class="btn btn-primary">Manage brands</button>
+        </a>
+    </div>
 </div>
