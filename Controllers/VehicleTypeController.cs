@@ -104,7 +104,7 @@ namespace RentCar.Controllers
         public IActionResult Details(int id)
         {
             var vehicleType = _context.VehicleTypes.SingleOrDefault(vt => vt.Id == id);
-            var status = _context.Statuses.SingleOrDefault(vt => vt.Id == id);
+            var status = _context.Statuses.SingleOrDefault(s => s.Id == vehicleType.StatusId);
 
             if (vehicleType == null || status == null)
                 return NotFound();
@@ -113,6 +113,7 @@ namespace RentCar.Controllers
             
             return View(vehicleType);
         }
+        
         [Route("vehicle-types/delete/{id}")]
 
         public IActionResult Delete(int id)

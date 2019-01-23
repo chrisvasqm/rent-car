@@ -33,7 +33,7 @@ namespace RentCar.Controllers
         public IActionResult Details(int id)
         {
             var brand = _context.Brands.SingleOrDefault(b => b.Id == id);
-            var status = _context.Statuses.SingleOrDefault(b => b.Id == id);
+            var status = _context.Statuses.SingleOrDefault(s => s.Id == brand.StatusId);
             
             if (brand == null || status == null)
                 return NotFound();
