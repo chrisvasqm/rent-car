@@ -67,13 +67,13 @@ namespace RentCar.Controllers
             else
             {
                 // Editing an existing one
-                var brandInDb = _context.Models.Single(b => b.Id == model.Id);
+                var modelInDb = _context.Models.Single(m => m.Id == model.Id);
 
-                brandInDb.Description = model.Description;
-                brandInDb.StatusId = model.StatusId;
+                modelInDb.Description = model.Description;
+                modelInDb.StatusId = model.StatusId;
 
-                var status = _context.Statuses.Single(b => b.Id == brandInDb.StatusId);
-                brandInDb.Status = status;
+                var status = _context.Statuses.Single(s => s.Id == model.StatusId);
+                modelInDb.Status = status;
             }
 
             _context.SaveChanges();
@@ -89,7 +89,7 @@ namespace RentCar.Controllers
             if (model == null)
                 return NotFound();
 
-            var status = _context.Statuses.SingleOrDefault(s => s.Id == model.Id);
+            var status = _context.Statuses.SingleOrDefault(s => s.Id == model.StatusId);
 
             if (status == null)
                 return NotFound();
