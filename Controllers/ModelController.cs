@@ -99,6 +99,7 @@ namespace RentCar.Controllers
             return View(model);
         }
 
+        [Route("models/edit/{id}")]
         public IActionResult Edit(int id)
         {
             var model = _context.Models.SingleOrDefault(m => m.Id == id);
@@ -112,6 +113,20 @@ namespace RentCar.Controllers
             };
 
             return View("ModelForm", viewModel);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var model = _context.Models.SingleOrDefault(m => m.Id == id);
+
+            if (model == null)
+                return NotFound();
+
+            _context.Models.Remove(model);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Model");
         }
     }
 }
