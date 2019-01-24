@@ -20,6 +20,7 @@ namespace RentCar.Controllers
             _context.Dispose();
         }
 
+        [Route("models/")]
         public IActionResult Index()
         {
             var models = _context.Models
@@ -29,6 +30,7 @@ namespace RentCar.Controllers
             return View(models);
         }
 
+        [Route("models/new")]
         public IActionResult New()
         {
             var viewModel = new ModelViewModel(new Model())
@@ -39,6 +41,8 @@ namespace RentCar.Controllers
             return View("ModelForm", viewModel);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Save(Model model)
         {
             // Show an error message if the state of the model is invalid.
@@ -75,6 +79,24 @@ namespace RentCar.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Model");
+        }
+
+        [Route("models/details/{id}")]
+        public IActionResult Details(int id)
+        {
+            var model = _context.Models.SingleOrDefault(m => m.Id == id);
+
+            if (model == null)
+                return NotFound();
+
+            var status = _context.Statuses.SingleOrDefault(s => s.Id == model.Id);
+
+            if (status == null)
+                return NotFound();
+
+            model.Status = status;
+
+            return View(model);
         }
     }
 }
