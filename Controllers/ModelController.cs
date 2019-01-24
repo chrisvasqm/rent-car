@@ -98,5 +98,20 @@ namespace RentCar.Controllers
 
             return View(model);
         }
+
+        public IActionResult Edit(int id)
+        {
+            var model = _context.Models.SingleOrDefault(m => m.Id == id);
+
+            if (model == null)
+                return NotFound();
+
+            var viewModel = new ModelViewModel(model)
+            {
+                Statuses = _context.Statuses.ToList()
+            };
+
+            return View("ModelForm", viewModel);
+        }
     }
 }
