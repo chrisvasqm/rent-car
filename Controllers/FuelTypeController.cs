@@ -67,5 +67,46 @@ namespace RentCar.Controllers
 
             return View(viewModel);
         }
+
+        [HttpPost]
+        [Route("fuel-type/save")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Save(FuelType model)
+        {
+            // Show an error message if the state of the model is invalid.
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new FuelTypeViewModel(model)
+                {
+                    Statuses = _context.Statuses.ToList()
+                };
+
+                return View("New", viewModel);
+            }
+
+
+            if (model.Id == 0)
+            {
+                // Adding a new item
+                var status = _context.Statuses.Single(m => m.Id == model.StatusId);
+                model.Status = status;
+                _context.FuelTypes.Add(model);
+            }
+            else
+            {
+                // Editing an existing one
+                var modelInDb = _context.Models.Single(m => m.Id == model.Id);
+
+                modelInDb.Description = model.Description;
+                modelInDb.StatusId = model.StatusId;
+
+                var status = _context.Statuses.Single(s => s.Id == model.StatusId);
+                modelInDb.Status = status;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "FuelType");
+        }
     }
 }
