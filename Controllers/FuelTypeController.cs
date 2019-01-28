@@ -22,5 +22,22 @@ namespace RentCar.Controllers
 
             return View(fuelTypes);
         }
+
+        public IActionResult Details(int id)
+        {
+            var fuelType = _context.FuelTypes.SingleOrDefault(ft => ft.Id == id);
+
+            if (fuelType == null)
+                return NotFound();
+
+            var status = _context.Statuses.SingleOrDefault(s => s.Id == fuelType.StatusId);
+
+            if (status == null)
+                return NotFound();
+
+            fuelType.Status = status;
+
+            return View(fuelType);
+        }
     }
 }
