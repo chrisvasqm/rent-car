@@ -14,6 +14,7 @@ namespace RentCar.Controllers
             _context = new ApplicationContext();
         }
 
+        [Route("fuel-type/")]
         public IActionResult Index()
         {
             var fuelTypes = _context.FuelTypes
@@ -23,6 +24,7 @@ namespace RentCar.Controllers
             return View(fuelTypes);
         }
 
+        [Route("fuel-type/details/{id}")]
         public IActionResult Details(int id)
         {
             var fuelType = _context.FuelTypes.SingleOrDefault(ft => ft.Id == id);
@@ -40,6 +42,7 @@ namespace RentCar.Controllers
             return View(fuelType);
         }
 
+        [Route("fuel-type/delete/{id}")]
         public IActionResult Delete(int id)
         {
             var fuelType = _context.FuelTypes.SingleOrDefault(ft => ft.Id == id);
@@ -52,6 +55,17 @@ namespace RentCar.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "FuelType");
+        }
+
+        [Route("fuel-type/new")]
+        public IActionResult New()
+        {
+            var viewModel = new FuelTypeViewModel(new FuelType())
+            {
+                Statuses = _context.Statuses.ToList()
+            };
+
+            return View(viewModel);
         }
     }
 }
