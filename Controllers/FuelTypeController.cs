@@ -71,12 +71,12 @@ namespace RentCar.Controllers
         [HttpPost]
         [Route("fuel-type/save")]
         [ValidateAntiForgeryToken]
-        public IActionResult Save(FuelType model)
+        public IActionResult Save(FuelType fuelType)
         {
             // Show an error message if the state of the model is invalid.
             if (!ModelState.IsValid)
             {
-                var viewModel = new FuelTypeViewModel(model)
+                var viewModel = new FuelTypeViewModel(fuelType)
                 {
                     Statuses = _context.Statuses.ToList()
                 };
@@ -85,28 +85,47 @@ namespace RentCar.Controllers
             }
 
 
-            if (model.Id == 0)
+            if (fuelType.Id == 0)
             {
                 // Adding a new item
-                var status = _context.Statuses.Single(m => m.Id == model.StatusId);
-                model.Status = status;
-                _context.FuelTypes.Add(model);
+                var status = _context.Statuses.Single(m => m.Id == fuelType.StatusId);
+                fuelType.Status = status;
+                _context.FuelTypes.Add(fuelType);
             }
             else
             {
                 // Editing an existing one
-                var modelInDb = _context.Models.Single(m => m.Id == model.Id);
+                var fuelTypeInDb = _context.FuelTypes.SingleOrDefault(m => m.Id == fuelType.Id);
 
-                modelInDb.Description = model.Description;
-                modelInDb.StatusId = model.StatusId;
+                if (fuelTypeInDb == null)
+                    return NotFound();
 
-                var status = _context.Statuses.Single(s => s.Id == model.StatusId);
-                modelInDb.Status = status;
+                fuelTypeInDb.Description = fuelType.Description;
+                fuelTypeInDb.StatusId = fuelType.StatusId;
+
+                var status = _context.Statuses.Single(s => s.Id == fuelType.StatusId);
+                fuelTypeInDb.Status = status;
             }
 
             _context.SaveChanges();
 
             return RedirectToAction("Index", "FuelType");
+        }
+
+        [Route("fuel-type/edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var fuelType = _context.FuelTypes.SingleOrDefault(ft => ft.Id == id);
+
+            if (fuelType == null)
+                return NotFound();
+
+            var viewModel = new FuelTypeViewModel(fuelType)
+            {
+                Statuses = _context.Statuses.ToList()
+            };
+
+            return View("New", viewModel);
         }
     }
 }
