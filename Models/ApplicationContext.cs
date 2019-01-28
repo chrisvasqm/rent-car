@@ -14,6 +14,8 @@ namespace RentCar.Models
 
         public DbSet<FuelType> FuelTypes { get; set; }
 
+        public DbSet<Vehicle> Vehicles { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(AppConfig.ConnectionString);
