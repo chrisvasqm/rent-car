@@ -39,5 +39,19 @@ namespace RentCar.Controllers
 
             return View(fuelType);
         }
+
+        public IActionResult Delete(int id)
+        {
+            var fuelType = _context.FuelTypes.SingleOrDefault(ft => ft.Id == id);
+
+            if (fuelType == null)
+                return NotFound();
+
+            _context.FuelTypes.Remove(fuelType);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "FuelType");
+        }
     }
 }
