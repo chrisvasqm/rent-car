@@ -19,5 +19,15 @@ namespace RentCar.Controllers
             
             return View(vehicles);
         }
+
+        public IActionResult New()
+        {
+            var viewModel = new VehicleViewModel(new Vehicle())
+            {
+                Statuses = _context.Statuses.ToList()
+            };
+            
+            return View(viewModel);
+        }
     }
 }
