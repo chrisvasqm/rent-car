@@ -1,4 +1,4 @@
-
+@model List<Vehicle>
 
 @{
     ViewBag.Title = "Vehicles";
@@ -7,3 +7,34 @@
 
 <h2>Vehicles</h2>
 
+<a asp-controller="Vehicle" asp-action="New">
+    <button class="btn btn-primary">New</button>
+</a>
+
+
+@if (@Model.Count == 0)
+{
+    <p>There are no vehicles to show. Please add a new one.</p>
+}
+else
+{
+    <table class="table table-striped table-hover ">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var vehicle in @Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(vehicle.Description, "Details", "Vehicle", new {id = vehicle.Id})</td>
+                <td>@vehicle.Status.Name</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Vehicle", new {id = vehicle.Id}) | @Html.ActionLink("Delete", "Delete", "Vehicle", new {id = vehicle.Id})</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    }
