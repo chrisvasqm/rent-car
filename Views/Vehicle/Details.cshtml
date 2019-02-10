@@ -1,0 +1,14 @@
+@model Vehicle
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "_Layout";
+}
+
+<h2>Details</h2>
+
+<ul>
+    <li>Description: @Model.Description</li>
+    <li>Status: @Model.Status.Name</li>
+    <li>Chassis Number: @Model.ChassisNumber</li>
+</ul>

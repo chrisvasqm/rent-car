@@ -83,5 +83,19 @@ namespace RentCar.Controllers
             
             return RedirectToAction("Index", "Vehicle");
         }
+
+        public IActionResult Details(int id)
+        {
+            var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == id);
+
+            if (vehicle == null)
+                return NotFound();
+
+            var status = _context.Statuses.SingleOrDefault(s => s.Id == vehicle.StatusId);
+
+            vehicle.Status = status;
+
+            return View(vehicle);
+        }
     }
 }
