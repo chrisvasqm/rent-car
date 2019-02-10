@@ -84,6 +84,7 @@ namespace RentCar.Controllers
             return RedirectToAction("Index", "Vehicle");
         }
 
+        [Route("vehicles/details/{id}")]
         public IActionResult Details(int id)
         {
             var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == id);
@@ -96,6 +97,22 @@ namespace RentCar.Controllers
             vehicle.Status = status;
 
             return View(vehicle);
+        }
+
+        [Route("vehicles/edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == id);
+
+            if (vehicle == null)
+                return NotFound();
+
+            var viewModel = new VehicleViewModel(vehicle)
+            {
+                Statuses = _context.Statuses.ToList()
+            };
+
+            return View("New", viewModel);
         }
     }
 }
