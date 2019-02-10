@@ -19,6 +19,7 @@ namespace RentCar.Models
             Model = vehicle.Model;
             FuelTypeId = vehicle.FuelTypeId;
             FuelType = vehicle.FuelType;
+            StatusId = vehicle.StatusId;
             Status = vehicle.Status;
         }
 
