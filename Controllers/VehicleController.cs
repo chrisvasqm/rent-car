@@ -114,5 +114,19 @@ namespace RentCar.Controllers
 
             return View("New", viewModel);
         }
+
+        public IActionResult Delete(int id)
+        {
+            var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == id);
+
+            if (vehicle == null)
+                return NotFound();
+
+            _context.Vehicles.Remove(vehicle);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Vehicle");
+        }
     }
 }
