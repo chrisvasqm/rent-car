@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace RentCar.Models
 {
     public class Vehicle
@@ -6,10 +8,13 @@ namespace RentCar.Models
 
         public string Description { get; set; }
 
+        [Display(Name = "Chassis number")]
         public string ChassisNumber { get; set; }
 
+        [Display(Name = "Motor number")]
         public string MotorNumber { get; set; }
 
+        [Display(Name = "License plate")]
         public string LicensePlate { get; set; }
 
         public byte VehicleTypeId { get; set; }
