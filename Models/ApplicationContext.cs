@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using RentCar.Views.Model;
 
 namespace RentCar.Models
 {
@@ -15,6 +16,8 @@ namespace RentCar.Models
         public DbSet<FuelType> FuelTypes { get; set; }
 
         public DbSet<Vehicle> Vehicles { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
