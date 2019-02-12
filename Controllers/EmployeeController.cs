@@ -29,5 +29,24 @@ namespace RentCar.Controllers
 
             return View(employees);
         }
+
+        public IActionResult Details(int id)
+        {
+            var employee = _context.Employees.SingleOrDefault(e => e.Id == id);
+
+            if (employee == null)
+                return NotFound();
+
+            var status = _context.Statuses.SingleOrDefault(s => s.Id == employee.StatusId);
+            employee.Status = status;
+
+            var commission = _context.Commissions.SingleOrDefault(c => c.Id == employee.CommissionId);
+            employee.Commission = commission;
+
+            var workShift = _context.WorkShifts.SingleOrDefault(w => w.Id == employee.WorkShiftId);
+            employee.WorkShift = workShift;
+
+            return View(employee);
+        }
     }
 }
