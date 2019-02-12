@@ -1,0 +1,48 @@
+@model RentCar.Views.Model.EmployeeViewModel
+
+@{
+    ViewBag.Title = "New";
+    Layout = "_Layout";
+}
+
+@if (@Model.Id == 0)
+{
+    <h2>New</h2>
+}
+else
+{
+    <h2>Edit</h2>
+}
+
+@using (Html.BeginForm("Save", "Employee"))
+{
+    @Html.ValidationSummary(true, "Please verify the following errors.")
+
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.AdmissionDate)
+            @Html.TextBoxFor(m => m.AdmissionDate, new {@class = "form-control", @type = "date"})
+            @Html.ValidationMessageFor(m => m.AdmissionDate)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.StatusId)
+            @Html.DropDownListFor(m => m.StatusId, new SelectList(Model.Statuses, "Id", "Name"), "Select a status", new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.StatusId)
+        </div>
+    </div>
+
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
