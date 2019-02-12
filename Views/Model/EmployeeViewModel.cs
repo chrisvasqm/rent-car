@@ -28,12 +28,14 @@ namespace RentCar.Views.Model
 
         public string IdentificationCard { get; set; }
 
+        [Display(Name = "Work shift")]
         public byte WorkShiftId { get; set; }
 
         public WorkShift WorkShift { get; set; }
 
         public IEnumerable<WorkShift> WorkShifts { get; set; }
 
+        [Display(Name = "Commission %")]
         public byte CommissionId { get; set; }
 
         public Commission Commission { get; set; }
@@ -43,6 +45,7 @@ namespace RentCar.Views.Model
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{dd/MM/yyyy}")]
         public DateTime AdmissionDate { get; set; }
 
+        [Display(Name = "Status")]
         public byte StatusId { get; set; }
 
         public Status Status { get; set; }

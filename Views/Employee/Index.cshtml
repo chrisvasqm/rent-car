@@ -36,7 +36,7 @@ else
                 <td>@Html.ActionLink(employee.Name, "Details", "Employee", new {id = employee.Id})</td>
                 <td>@employee.IdentificationCard</td>
                 <td>@employee.WorkShift.Name</td>
-                <td>@employee.Commission.Value</td>
+                <td>@employee.Commission.Value%</td>
                 <td>@employee.AdmissionDate</td>
                 <td>@Html.ActionLink("Edit", "Edit", "Employee", new {id = employee.Id}) | @Html.ActionLink("Delete", "Delete", "Employee", new {id = employee.Id})</td>
             </tr>

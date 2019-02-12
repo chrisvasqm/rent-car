@@ -1,8 +1,13 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Razor.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Remotion.Linq.Clauses.ResultOperators;
 using RentCar.Models;
 using RentCar.Views.Model;
+using Model = Microsoft.EntityFrameworkCore.Metadata.Internal.Model;
 
 namespace RentCar.Controllers
 {
@@ -74,6 +79,78 @@ namespace RentCar.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [Route("employees/save")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Save(Employee employee)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new EmployeeViewModel(new Employee())
+                {
+                    Statuses = _context.Statuses.ToList(),
+                    Commissions = _context.Commissions.ToList(),
+                    WorkShifts = _context.WorkShifts.ToList()
+                };
+
+                return View("New", viewModel);
+            }
+
+            if (employee.Id == 0)
+            {
+                // If it is a new employee, add it to the DB
+                var status = _context.Statuses.SingleOrDefault(s => s.Id == employee.StatusId);
+                employee.Status = status;
+
+                var commission = _context.Commissions.SingleOrDefault(c => c.Id == employee.CommissionId);
+                employee.Commission = commission;
+
+                var workShift = _context.WorkShifts.SingleOrDefault(w => w.Id == employee.WorkShiftId);
+                employee.WorkShift = workShift;
+
+                _context.Employees.Add(employee);
+            }
+            else
+            {
+                // If it is already in the DB, replace all it's properties for the new ones
+                var employeeInDb = _context.Employees.SingleOrDefault(e => e.Id == employee.Id);
+
+                if (employeeInDb == null)
+                    return NotFound();
+
+                employeeInDb.Name = employee.Name;
+                employee.StatusId = employee.StatusId;
+                employee.Status = employee.Status;
+                employee.CommissionId = employee.CommissionId;
+                employee.Commission = employee.Commission;
+                employee.WorkShiftId = employee.WorkShiftId;
+                employee.WorkShift = employee.WorkShift;
+                employee.AdmissionDate = employee.AdmissionDate;
+                employee.IdentificationCard = employee.IdentificationCard;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Employee");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var employee = _context.Employees.SingleOrDefault(e => e.Id == id);
+
+            if (employee == null)
+                return NotFound();
+            
+            var viewModel = new EmployeeViewModel(employee)
+            {
+                Statuses = _context.Statuses.ToList(),
+                Commissions = _context.Commissions.ToList(),
+                WorkShifts = _context.WorkShifts.ToList()
+            };
+
+            return View("New", viewModel);
         }
     }
 }
