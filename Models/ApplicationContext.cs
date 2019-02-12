@@ -19,6 +19,10 @@ namespace RentCar.Models
 
         public DbSet<Employee> Employees { get; set; }
 
+        public DbSet<Commission> Commissions { get; set; }
+
+        public DbSet<WorkShift> WorkShifts { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(AppConfig.ConnectionString);
