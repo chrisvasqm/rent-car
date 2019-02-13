@@ -2,7 +2,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentCar.Models;
-using RentCar.ViewModel;
 
 namespace RentCar.Controllers
 {
