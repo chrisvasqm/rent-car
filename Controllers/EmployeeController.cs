@@ -121,14 +121,14 @@ namespace RentCar.Controllers
                     return NotFound();
 
                 employeeInDb.Name = employee.Name;
-                employee.StatusId = employee.StatusId;
-                employee.Status = employee.Status;
-                employee.CommissionId = employee.CommissionId;
-                employee.Commission = employee.Commission;
-                employee.WorkShiftId = employee.WorkShiftId;
-                employee.WorkShift = employee.WorkShift;
-                employee.AdmissionDate = employee.AdmissionDate;
-                employee.IdentificationCard = employee.IdentificationCard;
+                employeeInDb.StatusId = employee.StatusId;
+                employeeInDb.Status = employee.Status;
+                employeeInDb.CommissionId = employee.CommissionId;
+                employeeInDb.Commission = employee.Commission;
+                employeeInDb.WorkShiftId = employee.WorkShiftId;
+                employeeInDb.WorkShift = employee.WorkShift;
+                employeeInDb.AdmissionDate = employee.AdmissionDate;
+                employeeInDb.IdentificationCard = employee.IdentificationCard;
             }
 
             _context.SaveChanges();
