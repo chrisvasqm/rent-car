@@ -119,5 +119,21 @@ namespace RentCar.Controllers
 
             return RedirectToAction("Index", "Client");
         }
+
+        public IActionResult Edit(int id)
+        {
+            var client = _context.Clients.SingleOrDefault(c => c.Id == id);
+
+            if (client == null)
+                return NotFound();
+            
+            var viewModel = new ClientViewModel(client)
+            {
+                Statuses = _context.Statuses.ToList(),
+                PersonTypes = _context.PersonTypes.ToList()
+            };
+
+            return View("New", viewModel);
+        }
     }
 }
