@@ -119,6 +119,7 @@ namespace RentCar.Controllers
             return RedirectToAction("Index", "Client");
         }
 
+        [Route("clients/edit/{id}")]
         public IActionResult Edit(int id)
         {
             var client = _context.Clients.SingleOrDefault(c => c.Id == id);
