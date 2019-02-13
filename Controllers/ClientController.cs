@@ -2,6 +2,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentCar.Models;
+using RentCar.ViewModel;
+using RentCar.Views.Model;
 
 namespace RentCar.Controllers
 {
@@ -23,7 +25,7 @@ namespace RentCar.Controllers
 
             return View(clients);
         }
-        
+
         public IActionResult Delete(int id)
         {
             var client = _context.Clients.SingleOrDefault(c => c.Id == id);
@@ -52,6 +54,18 @@ namespace RentCar.Controllers
             client.PersonType = personType;
 
             return View(client);
+        }
+
+        public IActionResult New()
+        {
+            var viewModel = new ClientViewModel(new Client())
+
+            {
+                Statuses = _context.Statuses.ToList(),
+                PersonTypes = _context.PersonTypes.ToList()
+            };
+
+            return View(viewModel);
         }
     }
 }
