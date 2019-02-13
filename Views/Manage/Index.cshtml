@@ -1,0 +1,54 @@
+@{
+    ViewBag.Title = "Manage";
+    Layout = "_Layout";
+}
+
+<style type="text/css">
+    .main-menu-button { margin-bottom: 8px; }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Management</h1>
+
+    <div class="main-menu-button">
+        <a asp-controller="VehicleType" asp-action="Index">
+            <button class="btn btn-primary">Vehicle types</button>
+        </a>
+    </div>
+
+    <div class="main-menu-button">
+        <a asp-controller="Brand" asp-action="Index">
+            <button class="btn btn-primary">Brands</button>
+        </a>
+    </div>
+
+    <div class="main-menu-button">
+        <a asp-controller="Model" asp-action="Index">
+            <button class="btn btn-primary">Models</button>
+        </a>
+    </div>
+
+    <div class="main-menu-button">
+        <a asp-controller="FuelType" asp-action="Index">
+            <button class="btn btn-primary">Fuel types</button>
+        </a>
+    </div>
+    
+    <div class="main-menu-button">
+        <a asp-controller="Vehicle" asp-action="Index">
+            <button class="btn btn-primary">Vehicles</button>
+        </a>
+    </div>
+    
+    <div class="main-menu-button">
+        <a asp-controller="Employee" asp-action="Index">
+            <button class="btn btn-primary">Employee</button>
+        </a>
+    </div>
+    
+    <div class="main-menu-button">
+        <a asp-controller="Client" asp-action="Index">
+            <button class="btn btn-primary">Clients</button>
+        </a>
+    </div>
+</div>
