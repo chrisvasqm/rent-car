@@ -27,6 +27,10 @@ namespace RentCar.Models
 
         public DbSet<Client> Clients { get; set; }
 
+        public DbSet<Inspection> Inspections { get; set; }
+
+        public DbSet<FuelAmount> FuelAmounts { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(AppConfig.ConnectionString);
