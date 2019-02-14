@@ -16,6 +16,11 @@ namespace RentCar.Controllers
             _context = new ApplicationContext();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         [Route("clients/")]
         public IActionResult Index()
         {
