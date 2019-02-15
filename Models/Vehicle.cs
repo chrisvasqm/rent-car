@@ -36,5 +36,7 @@ namespace RentCar.Models
         public byte StatusId { get; set; }
 
         public Status Status { get; set; }
+
+        public bool IsRented { get; set; }
     }
 }
