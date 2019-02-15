@@ -1,0 +1,44 @@
+@model List<RentCar.Models.Inspection>
+
+@{
+    ViewBag.Title = "Inspections";
+    Layout = "_Layout";
+}
+
+<h2>Inspections</h2>
+
+<a asp-controller="Inspection" asp-action="New">
+    <button class="btn btn-primary">New</button>
+</a>
+
+@if (@Model.Count == 0)
+{
+    <p>There are no fuel types to show. Please add a new one.</p>
+}
+else
+{
+    <table class="table table-striped table-hover ">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Vehicle</th>
+            <th>Client ID</th>
+            <th>Employee Assigned</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var m in @Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(m.Id.ToString(), "Details", "Inspection", new {id = m.Id})</td>
+                <td>@m.Vehicle.Description</td>
+                <td>@m.Client.IdentificationCard</td>
+                <td>@m.Employee.Name</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Inspection", new {id = m.Id}) | @Html.ActionLink("Delete", "Delete", "Inspection", new {id = m.Id})</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
