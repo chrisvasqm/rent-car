@@ -17,6 +17,10 @@ namespace RentCar.Models
 
         public bool HasScratches { get; set; }
 
+        public byte FuelAmountId { get; set; }
+
+        public FuelAmount FuelAmount { get; set; }
+
         public bool HasReplacementTire { get; set; }
 
         public bool HasCatJack { get; set; }
