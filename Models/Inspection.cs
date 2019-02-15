@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using RentCar.Views.Model;
 
 namespace RentCar.Models
@@ -7,10 +8,12 @@ namespace RentCar.Models
     {
         public int Id { get; set; }
 
+        [Display(Name = "Vehicle")]
         public int VehicleId { get; set; }
 
         public Vehicle Vehicle { get; set; }
 
+        [Display(Name = "Client")]
         public int ClientId { get; set; }
 
         public Client Client { get; set; }
@@ -37,10 +40,12 @@ namespace RentCar.Models
 
         public DateTime CreatedAt { get; set; }
 
+        [Display(Name = "Employee")]
         public int EmployeeId { get; set; }
 
         public Employee Employee { get; set; }
 
+        [Display(Name = "Status")]
         public byte StatusId { get; set; }
 
         public Status Status { get; set; }
