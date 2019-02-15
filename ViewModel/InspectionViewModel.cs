@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using RentCar.Models;
 using RentCar.Views.Model;
 
@@ -33,11 +34,15 @@ namespace RentCar.ViewModel
         
         public int Id { get; set; }
 
+        [Display(Name = "Vehicle")]
+
         public int VehicleId { get; set; }
 
         public Vehicle Vehicle { get; set; }
 
         public IEnumerable<Vehicle> Vehicles { get; set; }
+
+        [Display(Name = "Client")]
 
         public int ClientId { get; set; }
 
@@ -69,11 +74,15 @@ namespace RentCar.ViewModel
 
         public DateTime CreatedAt { get; set; }
 
+        [Display(Name = "Employee")]
+
         public int EmployeeId { get; set; }
 
         public Employee Employee { get; set; }
 
         public IEnumerable<Employee> Employees { get; set; }
+
+        [Display(Name = "Status")]
 
         public byte StatusId { get; set; }
 
