@@ -1,0 +1,128 @@
+@model RentCar.ViewModel.InspectionViewModel
+
+@{
+    ViewBag.Title = "New";
+    Layout = "_Layout";
+}
+
+@if (@Model.Id == 0)
+{
+    <h2>New</h2>
+}
+else
+{
+    <h2>Edit</h2>
+}
+
+@using (Html.BeginForm("Save", "Inspection"))
+{
+    @Html.ValidationSummary(true, "Please verify the following errors.")
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.VehicleId)
+            @Html.DropDownListFor(m => m.VehicleId, new SelectList(Model.Vehicles, "Id", "Description"), "Select a vehicle", new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.VehicleId)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.ClientId)
+            @Html.DropDownListFor(m => m.ClientId, new SelectList(Model.Clients, "Id", "Name"), "Select a client", new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.ClientId)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.FuelAmount)
+            @Html.DropDownListFor(m => m.FuelAmount, new SelectList(Model.FuelAmountses, "Id", "Value"), "Select a fuel amount", new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.FuelAmount)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.HasScratches)
+            @Html.CheckBoxFor(m => m.HasScratches, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.HasScratches)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.HasReplacementTire)
+            @Html.CheckBoxFor(m => m.HasReplacementTire, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.HasReplacementTire)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.HasCatJack)
+            @Html.CheckBoxFor(m => m.HasCatJack, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.HasCatJack)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.HasBrokenGlass)
+            @Html.CheckBoxFor(m => m.HasBrokenGlass, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.HasBrokenGlass)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.IsFirstTireGood)
+            @Html.CheckBoxFor(m => m.IsFirstTireGood, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.IsFirstTireGood)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.IsSecondTireGood)
+            @Html.CheckBoxFor(m => m.IsSecondTireGood, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.IsSecondTireGood)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.IsThirdTireGood)
+            @Html.CheckBoxFor(m => m.IsThirdTireGood, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.IsThirdTireGood)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.IsFourthTireGood)
+            @Html.CheckBoxFor(m => m.IsFourthTireGood, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.IsFourthTireGood)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.EmployeeId)
+            @Html.DropDownListFor(m => m.EmployeeId, new SelectList(Model.Employees, "Id", "Name"), "Select a status", new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.EmployeeId)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.StatusId)
+            @Html.DropDownListFor(m => m.StatusId, new SelectList(Model.Statuses, "Id", "Name"), "Select a status", new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.StatusId)
+        </div>
+    </div>
+
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}

@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentCar.Models;
+using RentCar.ViewModel;
 
 namespace RentCar.Controllers
 {
@@ -43,6 +45,21 @@ namespace RentCar.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Inspection");
+        }
+
+        
+        public IActionResult New()
+        {
+            var viewModel = new InspectionViewModel(new Inspection())
+            {
+                Statuses = _context.Statuses.ToList(),
+                Employees = _context.Employees.ToList(),
+                Clients = _context.Clients.ToList(),
+                Vehicles = _context.Vehicles.ToList(),
+                FuelAmountses = _context.FuelAmountses.ToList()
+            };
+
+            return View(viewModel);
         }
     }
 }
