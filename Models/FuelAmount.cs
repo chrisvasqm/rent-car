@@ -1,6 +1,6 @@
 namespace RentCar.Models
 {
-    public class FuelAmount
+    public class FuelAmounts
     {
         public int Id { get; set; }
 

@@ -19,7 +19,7 @@ namespace RentCar.Models
 
         public byte FuelAmountId { get; set; }
 
-        public FuelAmount FuelAmount { get; set; }
+        public FuelAmounts FuelAmount { get; set; }
 
         public bool HasReplacementTire { get; set; }
 

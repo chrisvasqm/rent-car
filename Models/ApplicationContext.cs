@@ -27,7 +27,7 @@ namespace RentCar.Models
 
         public DbSet<Client> Clients { get; set; }
 
-        public DbSet<FuelAmount> FuelAmounts { get; set; }
+        public DbSet<FuelAmounts> FuelAmountses { get; set; }
 
         public DbSet<Inspection> Inspections { get; set; }
 

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentCar.Models;
 
 namespace RentCar.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20190215013034_AddFuelAmountses")]
+    partial class AddFuelAmountses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,59 +72,6 @@ namespace RentCar.Migrations
                     b.HasIndex("StatusId1");
 
                     b.ToTable("FuelTypes");
-                });
-
-            modelBuilder.Entity("RentCar.Models.Inspection", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ClientId");
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<int>("EmployeeId");
-
-                    b.Property<byte>("FuelAmountId");
-
-                    b.Property<int?>("FuelAmountId1");
-
-                    b.Property<bool>("HasBrokenGlass");
-
-                    b.Property<bool>("HasCatJack");
-
-                    b.Property<bool>("HasReplacementTire");
-
-                    b.Property<bool>("HasScratches");
-
-                    b.Property<bool>("IsFirstTireGood");
-
-                    b.Property<bool>("IsFourthTireGood");
-
-                    b.Property<bool>("IsSecondTireGood");
-
-                    b.Property<bool>("IsThirdTireGood");
-
-                    b.Property<byte>("StatusId");
-
-                    b.Property<int?>("StatusId1");
-
-                    b.Property<int>("VehicleId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("FuelAmountId1");
-
-                    b.HasIndex("StatusId1");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("Inspections");
                 });
 
             modelBuilder.Entity("RentCar.Models.Model", b =>
@@ -351,32 +300,6 @@ namespace RentCar.Migrations
                     b.HasOne("RentCar.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId1");
-                });
-
-            modelBuilder.Entity("RentCar.Models.Inspection", b =>
-                {
-                    b.HasOne("RentCar.Views.Model.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("RentCar.Views.Model.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("RentCar.Models.FuelAmounts", "FuelAmount")
-                        .WithMany()
-                        .HasForeignKey("FuelAmountId1");
-
-                    b.HasOne("RentCar.Models.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId1");
-
-                    b.HasOne("RentCar.Models.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("RentCar.Models.Model", b =>
