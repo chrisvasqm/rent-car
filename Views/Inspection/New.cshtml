@@ -45,7 +45,7 @@ else
     <div class="form-group row">
         <div class="col-xs-3">
             @Html.LabelFor(m => m.EmployeeId)
-            @Html.DropDownListFor(m => m.EmployeeId, new SelectList(Model.Employees, "Id", "Name"), "Select a status", new {@class = "form-control"})
+            @Html.DropDownListFor(m => m.EmployeeId, new SelectList(Model.Employees, "Id", "Name"), "Select a employee", new {@class = "form-control"})
             @Html.ValidationMessageFor(m => m.EmployeeId)
         </div>
     </div>

@@ -23,20 +23,23 @@ else
             <th>ID</th>
             <th>Status</th>
             <th>Vehicle</th>
+            <th>Is Rented</th>
             <th>Client ID</th>
             <th>Employee Assigned</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        @foreach (var m in @Model)
+        @foreach (var inspection in @Model)
         {
             <tr>
-                <td>@Html.ActionLink(m.Id.ToString(), "Details", "Inspection", new {id = m.Id})</td>
-                <td>@m.Vehicle.Description</td>
-                <td>@m.Client.IdentificationCard</td>
-                <td>@m.Employee.Name</td>
-                <td>@Html.ActionLink("Edit", "Edit", "Inspection", new {id = m.Id}) | @Html.ActionLink("Delete", "Delete", "Inspection", new {id = m.Id})</td>
+                <td>@Html.ActionLink(inspection.Id.ToString(), "Details", "Inspection", new {id = inspection.Id})</td>
+                <td>@inspection.Status.Name</td>
+                <td>@inspection.Vehicle.Description</td>
+                <td>@inspection.Vehicle.IsRented</td>
+                <td>@inspection.Client.IdentificationCard</td>
+                <td>@inspection.Employee.Name</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Inspection", new {id = inspection.Id}) | @Html.ActionLink("Delete", "Delete", "Inspection", new {id = inspection.Id})</td>
             </tr>
         }
         </tbody>
