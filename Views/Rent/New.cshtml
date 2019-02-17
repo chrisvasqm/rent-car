@@ -1,0 +1,96 @@
+@model RentCar.Models.RentViewModel
+
+@{
+    ViewBag.Title = "New";
+    Layout = "_Layout";
+}
+
+@if (@Model.Id == 0)
+{
+    <h2>New</h2>
+}
+else
+{
+    <h2>Edit</h2>
+}
+
+@using (Html.BeginForm("Save", "Rent"))
+{
+    @Html.ValidationSummary(true, "Please verify the following errors.")
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.EmployeeId)
+            @Html.DropDownListFor(m => m.EmployeeId, new SelectList(Model.Employees, "Id", "Name"), "Select an employee", new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.EmployeeId)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.VehicleId)
+            @Html.DropDownListFor(m => m.VehicleId, new SelectList(Model.Vehicles, "Id", "Description"), "Select a vehicle", new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.VehicleId)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.ClientId)
+            @Html.DropDownListFor(m => m.ClientId, new SelectList(Model.Clients, "Id", "Name"), "Select a client", new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.ClientId)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.StatusId)
+            @Html.DropDownListFor(m => m.StatusId, new SelectList(Model.Statuses, "Id", "Name"), "Select a status", new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.StatusId)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.RentDate)
+            @Html.TextBoxFor(m => m.RentDate, new {@class = "form-control", @type = "date"})
+            @Html.ValidationMessageFor(m => m.RentDate)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.ReturnDate)
+            @Html.TextBoxFor(m => m.ReturnDate, new {@class = "form-control", @type = "date"})
+            @Html.ValidationMessageFor(m => m.ReturnDate)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.PricePerDay)
+            @Html.TextBoxFor(m => m.PricePerDay, new {@class = "form-control", @type = "number"})
+            @Html.ValidationMessageFor(m => m.PricePerDay)
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.NumberOfDays)
+            @Html.TextBoxFor(m => m.NumberOfDays, new {@class = "form-control", @type = "number"})
+            @Html.ValidationMessageFor(m => m.NumberOfDays)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-xs-3">
+            @Html.LabelFor(m => m.Comment)
+            @Html.TextBoxFor(m => m.Comment, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.Comment)
+        </div>
+    </div>
+    
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
