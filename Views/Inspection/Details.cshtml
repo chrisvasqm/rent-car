@@ -1,0 +1,22 @@
+@model Inspection
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "_Layout";
+}
+
+<h2>Details</h2>
+
+<ul>
+    <li>Created At: @Model.CreatedAt</li>
+    <li>ID: @Model.Id</li>
+    <li>Status: @Model.Status.Name</li>
+    <li>Vehiculo: @Model.Vehicle.Description</li>
+    <li>Client: @Model.Client.Name</li>
+    <li>Employee Assigned: @Model.Employee.Name</li>
+    <li>Has scraches: @Model.HasScratches</li>
+    <li>Fuel amount: @Model.FuelAmount.Value</li>
+    <li>Has backup tire: @Model.HasReplacementTire</li>
+    <li>Has cat jack: @Model.HasCatJack</li>
+    <li>Has broken glass: @Model.HasBrokenGlass</li>
+</ul>

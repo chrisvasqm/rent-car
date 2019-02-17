@@ -167,5 +167,30 @@ namespace RentCar.Controllers
 
             return View("New", viewModel);
         }
+
+        public IActionResult Details(int id)
+        {
+            var inspection = _context.Inspections.SingleOrDefault(i => i.Id == id);
+
+            if (inspection == null)
+                return NotFound();
+            
+            var status = _context.Statuses.SingleOrDefault(s => s.Id == inspection.StatusId);
+            inspection.Status = status;
+
+            var employee = _context.Employees.SingleOrDefault(e => e.Id == inspection.EmployeeId);
+            inspection.Employee = employee;
+
+            var client = _context.Clients.SingleOrDefault(c => c.Id == inspection.ClientId);
+            inspection.Client = client;
+
+            var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == inspection.VehicleId);
+            inspection.Vehicle = vehicle;
+
+            var fuelAmount = _context.FuelAmountses.SingleOrDefault(f => f.Id == inspection.FuelAmountId);
+            inspection.FuelAmount = fuelAmount;
+
+            return View(inspection);
+        }
     }
 }
