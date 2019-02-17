@@ -79,5 +79,70 @@ namespace RentCar.Controllers
 
             return View(viewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Save(Rent rent)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new RentViewModel(rent)
+                {
+                    Statuses = _context.Statuses.ToList(),
+                    Clients = _context.Clients.ToList(),
+                    Vehicles = _context.Vehicles.ToList(),
+                    Employees = _context.Employees.ToList()
+                };
+
+                return View("New", viewModel);
+            }
+
+            if (rent.Id == 0)
+            {
+                var client = _context.Clients.SingleOrDefault(c => c.Id == rent.ClientId);
+                rent.Client = client;
+            
+                var status = _context.Statuses.SingleOrDefault(s => s.Id == rent.StatusId);
+                rent.Status = status;
+
+                var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == rent.VehicleId);
+                rent.Vehicle = vehicle;
+
+                var employee = _context.Employees.SingleOrDefault(e => e.Id == rent.EmployeeId);
+                rent.Employee = employee;
+
+                _context.Rents.Add(rent);
+            }
+            else
+            {
+                var rentInDb = _context.Rents.SingleOrDefault(r => r.Id == rent.Id);
+                
+                var client = _context.Clients.SingleOrDefault(c => c.Id == rent.ClientId);
+                rentInDb.Client = client;
+                rentInDb.ClientId = rent.ClientId;
+                
+                var status = _context.Statuses.SingleOrDefault(s => s.Id == rent.StatusId);
+                rentInDb.Status = status;
+                rentInDb.StatusId = rent.StatusId;
+
+                var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == rent.VehicleId);
+                rentInDb.Vehicle = vehicle;
+                rentInDb.VehicleId = rent.VehicleId;
+
+                var employee = _context.Employees.SingleOrDefault(e => e.Id == rent.EmployeeId);
+                rentInDb.Employee = employee;
+                rentInDb.EmployeeId = rent.EmployeeId;
+
+                rentInDb.RentDate = rent.RentDate;
+                rentInDb.ReturnDate = rent.ReturnDate;
+                rentInDb.PricePerDay = rent.PricePerDay;
+                rentInDb.NumberOfDays = rent.NumberOfDays;
+                rentInDb.Comment = rent.Comment;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Rent");
+        }
     }
 }
