@@ -54,7 +54,7 @@ namespace RentCar.Controllers
 
             var client = _context.Clients.SingleOrDefault(c => c.Id == rent.ClientId);
             rent.Client = client;
-            
+
             var status = _context.Statuses.SingleOrDefault(s => s.Id == rent.StatusId);
             rent.Status = status;
 
@@ -101,7 +101,7 @@ namespace RentCar.Controllers
             {
                 var client = _context.Clients.SingleOrDefault(c => c.Id == rent.ClientId);
                 rent.Client = client;
-            
+
                 var status = _context.Statuses.SingleOrDefault(s => s.Id == rent.StatusId);
                 rent.Status = status;
 
@@ -116,11 +116,11 @@ namespace RentCar.Controllers
             else
             {
                 var rentInDb = _context.Rents.SingleOrDefault(r => r.Id == rent.Id);
-                
+
                 var client = _context.Clients.SingleOrDefault(c => c.Id == rent.ClientId);
                 rentInDb.Client = client;
                 rentInDb.ClientId = rent.ClientId;
-                
+
                 var status = _context.Statuses.SingleOrDefault(s => s.Id == rent.StatusId);
                 rentInDb.Status = status;
                 rentInDb.StatusId = rent.StatusId;
@@ -143,6 +143,24 @@ namespace RentCar.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Rent");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var rent = _context.Rents.SingleOrDefault(r => r.Id == id);
+
+            if (rent == null)
+                return NotFound();
+
+            var viewModel = new RentViewModel(rent)
+            {
+                Statuses = _context.Statuses.ToList(),
+                Clients = _context.Clients.ToList(),
+                Vehicles = _context.Vehicles.ToList(),
+                Employees = _context.Employees.ToList()
+            };
+
+            return View("New", viewModel);
         }
     }
 }
