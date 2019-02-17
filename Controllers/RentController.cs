@@ -16,10 +16,5 @@ namespace RentCar.Controllers
         {
             _context.Dispose();
         }
-
-        public IActionResult Index()
-        {
-            
-        }
     }
 }
