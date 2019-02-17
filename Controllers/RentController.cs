@@ -8,7 +8,7 @@ namespace RentCar.Controllers
     public class RentController : Controller
     {
         private readonly ApplicationContext _context;
-        
+
         public RentController()
         {
             _context = new ApplicationContext();
@@ -30,7 +30,7 @@ namespace RentCar.Controllers
 
             return View(rents);
         }
-        
+
         public IActionResult Delete(int id)
         {
             var rent = _context.Rents.SingleOrDefault(r => r.Id == id);
@@ -43,6 +43,28 @@ namespace RentCar.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Rent");
+        }
+
+        public IActionResult Details(int id)
+        {
+            var rent = _context.Rents.SingleOrDefault(r => r.Id == id);
+
+            if (rent == null)
+                return NotFound();
+
+            var client = _context.Clients.SingleOrDefault(c => c.Id == rent.ClientId);
+            rent.Client = client;
+            
+            var status = _context.Statuses.SingleOrDefault(s => s.Id == rent.StatusId);
+            rent.Status = status;
+
+            var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == rent.VehicleId);
+            rent.Vehicle = vehicle;
+
+            var employee = _context.Employees.SingleOrDefault(e => e.Id == rent.EmployeeId);
+            rent.Employee = employee;
+
+            return View(rent);
         }
     }
 }
