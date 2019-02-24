@@ -20,7 +20,7 @@ else
     <table class="table table-striped table-hover ">
         <thead>
         <tr>
-            <th>ID</th>
+            <th>Code</th>
             <th>Status</th>
             <th>Client</th>
             <th>Vehicle</th>
@@ -31,7 +31,7 @@ else
         @foreach (var rent in @Model)
         {
             <tr>
-                <td>@Html.ActionLink(rent.Id.ToString(), "Details", "Rent", new {id = rent.Id})</td>
+                <td>@Html.ActionLink("Rent #" + rent.Id, "Details", "Rent", new {id = rent.Id})</td>
                 <td>@rent.Status.Name</td>
                 <td>@rent.Client.Name</td>
                 <td>@rent.Vehicle.Description</td>
