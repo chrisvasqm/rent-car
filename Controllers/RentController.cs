@@ -73,7 +73,7 @@ namespace RentCar.Controllers
             {
                 Statuses = _context.Statuses.ToList(),
                 Clients = _context.Clients.ToList(),
-                Vehicles = _context.Vehicles.ToList(),
+                Vehicles = _context.Vehicles.Where(v => v.IsRented == false).ToList(),
                 Employees = _context.Employees.ToList()
             };
 
