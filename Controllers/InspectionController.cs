@@ -118,7 +118,6 @@ namespace RentCar.Controllers
 
                 inspectionInDb.VehicleId = inspection.VehicleId;
                 var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == inspection.VehicleId);
-                vehicle.IsRented = true;
                 inspectionInDb.Vehicle = vehicle;
 
                 inspectionInDb.FuelAmountId = inspection.FuelAmountId;
