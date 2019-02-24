@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using RentCar.Models;
 
 namespace RentCar.Controllers
@@ -85,6 +86,10 @@ namespace RentCar.Controllers
 
             if (rent == null)
                 return NotFound();
+
+            var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == rent.VehicleId);
+            rent.Vehicle = vehicle;
+            rent.Vehicle.IsRented = false;
 
             _context.Rents.Remove(rent);
 
@@ -210,6 +215,16 @@ namespace RentCar.Controllers
             };
 
             return View("New", viewModel);
+        }
+
+        public IActionResult ConfirmReturn(int id)
+        {
+            var rent = _context.Rents.SingleOrDefault(r => r.Id == id);
+
+            if (rent == null)
+                return NotFound();
+
+            return View(rent);
         }
     }
 }

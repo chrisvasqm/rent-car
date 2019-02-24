@@ -39,7 +39,7 @@ else
                 <td>@rent.Employee.Name</td>
                 <td>@rent.Vehicle.Description</td>
                 <td>@rent.RentDate</td>
-                <td>@Html.ActionLink("Edit", "Edit", "Rent", new {id = rent.Id}) | @Html.ActionLink("Delete", "Delete", "Rent", new {id = rent.Id})</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Rent", new {id = rent.Id}) | @Html.ActionLink("Return", "ConfirmReturn", "Rent", new {id = rent.Id})</td>
             </tr>
         }
         </tbody>

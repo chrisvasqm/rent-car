@@ -1,0 +1,15 @@
+@using System.Runtime.InteropServices
+@model Rent
+
+@{
+    ViewBag.Title = "Confirm Return";
+    Layout = "_Layout";
+}
+
+<h2>Confirm Return</h2>
+
+<a asp-controller="Rent" asp-action="Index">
+    <button class="btn btn-primary">Cancel</button>
+</a>
+
+@Html.ActionLink("Return", "Delete", "Rent", new {id = @Model.Id}, new { @class = "btn btn-primary" })
