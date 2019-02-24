@@ -106,6 +106,7 @@ namespace RentCar.Controllers
                 rent.Status = status;
 
                 var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == rent.VehicleId);
+                vehicle.IsRented = true;
                 rent.Vehicle = vehicle;
 
                 var employee = _context.Employees.SingleOrDefault(e => e.Id == rent.EmployeeId);
