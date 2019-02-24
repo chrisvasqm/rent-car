@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,16 +20,63 @@ namespace RentCar.Controllers
             _context.Dispose();
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.EmployeeSortParam = sortOrder == "Employee" ? "employee_desc" : "Employee";
+            ViewBag.ClientSortParam = sortOrder == "Client" ? "client_desc" : "Client";
+            ViewBag.VehicleSortParam = sortOrder == "Vehicle" ? "vehicle_desc" : "Vehicle";
+            ViewBag.StatusSortParam = sortOrder == "Status" ? "status_desc" : "Status";
+
             var rents = _context.Rents
                 .Include(r => r.Client)
                 .Include(r => r.Status)
                 .Include(r => r.Vehicle)
                 .Include(r => r.Employee)
-                .ToList();
+                .AsQueryable();
 
-            return View(rents);
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    rents = rents.OrderByDescending(r => r.Id);
+                    break;
+                case "Date":
+                    rents = rents.OrderBy(r => r.RentDate);
+                    break;
+                case "date_desc":
+                    rents = rents.OrderByDescending(r => r.ReturnDate);
+                    break;
+                case "Employee":
+                    rents = rents.OrderBy(r => r.Employee);
+                    break;
+                case "employee_desc":
+                    rents = rents.OrderByDescending(r => r.Employee);
+                    break;
+                case "Client":
+                    rents = rents.OrderBy(r => r.Client);
+                    break;
+                case "client_desc":
+                    rents = rents.OrderByDescending(r => r.Client);
+                    break;
+                case "Vehicle":
+                    rents = rents.OrderBy(r => r.Vehicle);
+                    break;
+                case "vehicle_desc":
+                    rents = rents.OrderByDescending(r => r.Vehicle);
+                    break;
+                case "Status":
+                    rents = rents.OrderBy(r => r.Status);
+                    break;
+                case "status_desc":
+                    rents = rents.OrderByDescending(r => r.Status);
+                    break;
+                default:
+                    rents = rents.OrderBy(s => s.Id);
+                    break;
+            }
+
+            return View(rents.ToList());
         }
 
         public IActionResult Delete(int id)

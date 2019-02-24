@@ -20,11 +20,12 @@ else
     <table class="table table-striped table-hover ">
         <thead>
         <tr>
-            <th>Code</th>
-            <th>Status</th>
-            <th>Client</th>
-            <th>Employee</th>
-            <th>Vehicle</th>
+            <th>@Html.ActionLink("Code", "Index", new {sortOrder = ViewBag.NameSortParm})</th>
+            <th>@Html.ActionLink("Status", "Index", new {sortOrder = ViewBag.StatusSortParam})</th>
+            <th>@Html.ActionLink("Client", "Index", new {sortOrder = ViewBag.ClientSortParam})</th>
+            <th>@Html.ActionLink("Employee", "Index", new {sortOrder = ViewBag.EmployeeSortParam})</th>
+            <th>@Html.ActionLink("Vehicle", "Index", new {sortOrder = ViewBag.VehicleSortParam})</th>
+            <th>@Html.ActionLink("Rented From", "Index", new {sortOrder = ViewBag.DateSortParm})</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -37,6 +38,7 @@ else
                 <td>@rent.Client.Name</td>
                 <td>@rent.Employee.Name</td>
                 <td>@rent.Vehicle.Description</td>
+                <td>@rent.RentDate</td>
                 <td>@Html.ActionLink("Edit", "Edit", "Rent", new {id = rent.Id}) | @Html.ActionLink("Delete", "Delete", "Rent", new {id = rent.Id})</td>
             </tr>
         }
