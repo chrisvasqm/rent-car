@@ -224,6 +224,12 @@ namespace RentCar.Controllers
             if (rent == null)
                 return NotFound();
 
+            var vehicle = _context.Vehicles.SingleOrDefault(v => v.Id == rent.VehicleId);
+            rent.Vehicle = vehicle;
+
+            var client = _context.Clients.SingleOrDefault(c => c.Id == rent.ClientId);
+            rent.Client = client;
+
             return View(rent);
         }
     }

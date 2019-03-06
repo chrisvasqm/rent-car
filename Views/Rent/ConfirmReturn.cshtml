@@ -1,4 +1,3 @@
-@using System.Runtime.InteropServices
 @model Rent
 
 @{
@@ -6,7 +5,9 @@
     Layout = "_Layout";
 }
 
-<h2>Confirm Return</h2>
+<h2>Confirmation</h2>
+
+<p>Would you like to return the vehicle @Model.Vehicle.Description from @Model.Client.Name?</p>
 
 <a asp-controller="Rent" asp-action="Index">
     <button class="btn btn-primary">Cancel</button>
