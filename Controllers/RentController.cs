@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -21,7 +22,7 @@ namespace RentCar.Controllers
             _context.Dispose();
         }
 
-        public IActionResult Index(string sortOrder)
+        public IActionResult Index(string sortOrder, string criterio = null)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
@@ -77,7 +78,7 @@ namespace RentCar.Controllers
                     break;
             }
 
-            return View(rents.ToList());
+            return View(criterio == null ? rents.ToList() : rents.Where(r => (r == null || r.Client.Name.StartsWith(criterio))).ToList());
         }
 
         public IActionResult Delete(int id)
