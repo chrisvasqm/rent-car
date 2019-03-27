@@ -1,4 +1,8 @@
 @model List<RentCar.Models.Rent>
+<style type="text/css">
+    .main-menu-button { margin-bottom: 8px; }
+</style>
+
 
 @{
     ViewBag.Title = "Rents";
@@ -8,12 +12,12 @@
 <h2>Rents</h2>
 
 <a asp-controller="Rent" asp-action="New">
-    <button class="btn btn-primary">New</button>
+    <button class="btn btn-primary main-menu-button">New</button>
 </a>
 
 <form method="get">
     <input type="text" id="criterio" name="criterio" />
-    <input type="submit" id="cmdBuscar" value="Buscar por cliente" />
+    <input type="submit" id="cmdBuscar" class="main-menu-button" value="Buscar por cliente" />
 </form>
 
 @if (@Model.Count == 0)
